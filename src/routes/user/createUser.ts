@@ -1,6 +1,6 @@
 import express, { Request, Response } from 'express';
 import User from '../../entities/user';
-import uuid from 'uuid';
+import { v4 as uuidV4 } from 'uuid';
 const router = express.Router();
 
 interface UserInput {
@@ -24,7 +24,7 @@ router.post('/', async (req: Request, res: Response) => {
     // TODO: validation for inputs
 
     const user = new User();
-    user.id = uuid.v4();
+    user.id = uuidV4();
     user.firstName = firstName;
     user.middleName = middleName = !null ? middleName : '';
     user.lastName = lastName;
