@@ -7,7 +7,8 @@ import {
   getConnection,
   BaseEntity
 } from 'typeorm';
-
+// Dekoraator käsk, mis ütleb Typeormile, et tegemist on entity ehk
+// andmebaasi objekti kirjeldusega
 @Entity()
 export class User extends BaseEntity {
   @PrimaryGeneratedColumn('uuid')
