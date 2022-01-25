@@ -33,10 +33,6 @@ export class User extends BaseEntity {
   createdAt: Date;
   @UpdateDateColumn()
   updatedAt: Date;
-
-  save() {
-    return getConnection().getRepository(User).save(this);
-  }
 }
 
 export default User;

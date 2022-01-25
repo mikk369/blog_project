@@ -1,6 +1,6 @@
 import express, { Request, Response } from 'express';
-import { getConnection } from 'typeorm';
 import User from '../../entities/user';
+import uuid from 'uuid';
 const router = express.Router();
 
 interface UserInput {
@@ -21,7 +21,10 @@ router.post('/', async (req: Request, res: Response) => {
       email
     } = req.body as UserInput;
 
+    // TODO: validation for inputs
+
     const user = new User();
+    user.id = uuid.v4();
     user.firstName = firstName;
     user.middleName = middleName = !null ? middleName : '';
     user.lastName = lastName;
