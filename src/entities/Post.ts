@@ -32,5 +32,5 @@ export default class Post extends BaseEntity {
   updatedAt: Date;
 
   @ManyToOne(() => User, (user) => user.posts)
-  author: User;
+  author: Promise<User>;
 }
