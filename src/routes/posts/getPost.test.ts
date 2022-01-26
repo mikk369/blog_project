@@ -1,23 +1,17 @@
 import axios from 'axios';
 
-const endpoint = 'http://localhost:3000/users/';
+const endpoint = 'http://localhost:3000/posts/';
 
-describe('users', () => {
+describe('get post by ID', () => {
   beforeAll(() => {
     // käivitatakse enne testi paki algust (nt. tee test andmebaasi ja täida see)
   });
-  // käivita testid
-  it('Should return user by ID', async () => {
+  it('should return post by ID', async () => {
     const response = await axios.get(
-      endpoint + '/089ddda5-f4c8-4bca-974a-e69d616e504a'
+      endpoint + '/4c4a2617-bca8-460f-ab67-a692bb4cc553'
     );
-    const data = response.data;
-    expect(data).toHaveProperty('id');
-    expect(data.id).toEqual('089ddda5-f4c8-4bca-974a-e69d616e504a');
-    return;
-  });
-  afterAll(() => {
-    // käivitatakse peale testi pakki (nt. kustuta test andmebaas)
+    expect(response?.data).toHaveProperty('id');
+    expect(response?.data?.title).toEqual('Title for a random post');
   });
 
   it('Should return error for non existing ID', async () => {
@@ -25,9 +19,10 @@ describe('users', () => {
     const data = response.data;
     console.log(data);
     expect(data).toHaveProperty('message');
-    expect(data.message).toEqual('no user found with given ID');
+    expect(data?.message).toEqual('no user found with given ID');
     return;
   });
+
   afterAll(() => {
     // käivitatakse peale testi pakki (nt. kustuta test andmebaas)
   });
