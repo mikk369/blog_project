@@ -14,6 +14,11 @@ interface PostInput {
 router.post('/', async (req: Request, res: Response) => {
   try {
     const { authorId, title, summary, content } = req.body as PostInput;
+
+    // validation näide
+    if (!authorId || !title || !summary || !content) {
+      return res.json({ error: 'all fields must be filled' });
+    }
     // TODO: valideeri sijsonid (nt. sanitize ja validate)
 
     const user = await User.findOne({ id: authorId });

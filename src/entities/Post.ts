@@ -18,6 +18,8 @@ export default class Post extends BaseEntity {
   title: string;
   @Column()
   authorId!: string;
+  @Column()
+  parentId!: string;
   @Column('varchar', { length: 100 })
   metaTitle?: string;
   @Column('tinytext')
@@ -35,4 +37,10 @@ export default class Post extends BaseEntity {
     createForeignKeyConstraints: true
   })
   author: Promise<User>;
+
+  // Parent post
+  @ManyToOne(() => Post, (post) => post.parentId, {
+    createForeignKeyConstraints: true
+  })
+  parentPost: Promise<User>;
 }
