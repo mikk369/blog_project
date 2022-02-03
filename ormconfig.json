@@ -1,5 +1,0 @@
-{
-  "type": "mysql",
-  "entities": ["src/entities/*.ts"],
-  "synchronize": true
-}
