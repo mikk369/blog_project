@@ -7,7 +7,6 @@ export async function openDatabaseConnection() {
 
   const conn = await createConnection({
     type: "mysql",
-    // entities: ["../entities/*.ts"],
     entities: [path.resolve(__dirname, '..', 'entities/*{.ts,.js}')],
     host: config.host,
     port: config.port,
