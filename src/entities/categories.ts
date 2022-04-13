@@ -11,13 +11,13 @@ import Post from './Post';
 import User from './User';
 
 @Entity()
-export class Comment extends BaseEntity {
+export class Category extends BaseEntity {
   @PrimaryGeneratedColumn('uuid')
   id: number;
+
   @Column()
-  title: string;
-  @Column()
-  context: string;
+  name: string;
+
   @ManyToMany(() => Post)
   posts: Post;
 }

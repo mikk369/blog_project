@@ -11,8 +11,8 @@ import Post from './Post';
 import User from './User';
 
 @Entity()
-export class Tag {
-  @PrimaryGeneratedColumn()
+export class Tag extends BaseEntity {
+  @PrimaryGeneratedColumn('uuid')
   id: number;
 
   @Column()
