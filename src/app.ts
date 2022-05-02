@@ -7,11 +7,13 @@ const App = express();
 App.use(express.json());
 App.use(cors());
 
-App.use(helmet({
-  crossOriginResourcePolicy: {
-    policy: 'cross-origin',
-  }
-}));
+App.use(
+  helmet({
+    crossOriginResourcePolicy: {
+      policy: 'cross-origin'
+    }
+  })
+);
 
 App.use(router);
 App.get('/', (req, res) => {

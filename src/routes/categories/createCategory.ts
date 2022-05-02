@@ -1,63 +1,71 @@
 import express, { Request, Response } from 'express';
-import Post from '../../entities/Post';
+import Category from '../../entities/Category';
 import { v4 as uuidV4 } from 'uuid';
-import User from '../../entities/user';
 const router = express.Router();
 
-interface PostInput {
-  authorId: string;
+interface CategoryInput {
   title: string;
-  summary: string;
   content: string;
 }
 
 router.post('/', async (req: Request, res: Response) => {
   try {
-    const { authorId, title, summary, content } = req.body as PostInput;
+    const { title, content } = req.body as CategoryInput;
+    console.log('request', req.body);
 
     // validation näide
-    if (!authorId || !title || !summary || !content) {
+    if (!title || !content) {
+      //if (!authorId) {
       return res.json({ error: 'all fields must be filled' });
     }
-    // TODO: valideeri sijsonid (nt. sanitize ja validate)
+    // TODO: valideeri jsonid (nt. sanitize ja validate)
 
-    const user = await User.findOne({ id: authorId });
-    if (!user) {
-      return res.json({ message: 'No such user found' });
-    }
-
-    const post = Post.create({
-      id: uuidV4(),
-      authorId: user.id,
-      title: title,
-      metaTitle: title.replace(/\s/g, '-'),
-      summary: summary,
-      content: content,
-      published: false
-    });
-    console.log(post);
-    const newPost = await post.save();
-    if (!newPost) {
-      // TODO: parem logger vahevara kasutusele võtta
-      console.log({ error: 'unable to save post' });
-      // TODO: error handling vahevara luua (ühtlustada errori kuvamine)
+    const titleCheck = await Category.findOne({ title: title });
+    if (titleCheck) {
       return res.json({
-        error: 'Unable to create new post',
-        message: 'typeorm save'
+        message:
+          'There is a category with this title already: ' + titleCheck.title
       });
     }
 
-    return res.json(newPost);
+    const category = Category.create({
+      id: uuidV4(),
+
+      title: title,
+
+      metaTitle: title.replace(/\s/g, '-'),
+
+      content: content
+    });
+
+    console.log(category);
+
+    const newCategory = await category.save();
+
+    if (!newCategory) {
+      // TODO: parem logger vahevara kasutusele võtta
+
+      console.log({ error: 'unable to save post' });
+
+      // TODO: error handling vahevara luua (ühtlustada errori kuvamine)
+
+      return res.json({
+        error: 'Unable to create new post',
+
+        message: 'typeorm save'
+      });
+    }
+    return res.json(newCategory);
   } catch (error) {
     console.log('Unknown databse error');
     if (error instanceof Error) {
       return res.json({
-        error: 'Unable to create new post',
+        error: 'Unable to create category',
         message: error.message
       });
     }
     return res.json({
-      error: 'Unable to create new post',
+      error: 'Unable to create category',
       message: 'Unknown error'
     });
   }

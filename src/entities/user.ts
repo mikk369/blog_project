@@ -10,18 +10,18 @@ import {
 } from 'typeorm';
 import Post from './Post';
 
-type UserInfo ={
-  id: string,
-  firstName: string,
-  middleName: string,
-  lastName: string,
-  mobile: string,
-  email: string,
-  intro: string,
-  profile?: string,
-  createdAt: Date,
-  updatedAt: Date
-}
+type UserInfo = {
+  id: string;
+  firstName: string;
+  middleName: string;
+  lastName: string;
+  mobile: string;
+  email: string;
+  intro: string;
+  profile?: string;
+  createdAt: Date;
+  updatedAt: Date;
+};
 
 // Dekoraator käsk, mis ütleb Typeormile, et tegemist on entity ehk
 // andmebaasi objekti kirjeldusega
@@ -66,15 +66,13 @@ export default class User extends BaseEntity {
   // @OneToMany(() => Post, (post) => post.author)
   // posts: Promise<Post[]>;
 
-
-  userInfo(){
-
+  userInfo() {
     return {
       id: this.id,
       firstName: this.firstName,
       middleName: this.middleName ?? '',
       lastName: this.lastName,
-      fullName: this.firstName + ' ' + this.lastName, 
+      fullName: this.firstName + ' ' + this.lastName,
       email: this.email,
       mobile: this.mobile,
       intro: this.intro ?? '',
@@ -82,6 +80,6 @@ export default class User extends BaseEntity {
       posts: this.posts,
       createdAt: this.createdAt,
       updatedAt: this.updatedAt
-    }
+    };
   }
 }

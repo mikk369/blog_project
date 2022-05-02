@@ -1,5 +1,5 @@
 import express, { Request, Response } from 'express';
-import User from '../../entities/User';
+import User from '../../entities/user';
 import { v4 as uuidV4 } from 'uuid';
 import bunyan from 'bunyan';
 const log = bunyan.createLogger({
@@ -19,13 +19,8 @@ interface UserInput {
 
 router.post('/', async (req: Request, res: Response) => {
   try {
-    let {
-      firstName,
-      middleName,
-      lastName,
-      mobile,
-      email
-    } = req.body as UserInput;
+    let { firstName, middleName, lastName, mobile, email } =
+      req.body as UserInput;
 
     // TODO: validation for inputs
 
@@ -45,10 +40,9 @@ router.post('/', async (req: Request, res: Response) => {
 
     return res.json(newUser);
   } catch (error) {
-    log.error( { error: error, input: req.body }, 'Unable to create User');
+    log.error({ error: error, input: req.body }, 'Unable to create User');
 
     if (error instanceof Error) {
-
       return res.json({
         error: 'Unable to create new user',
         message: error.message

@@ -7,6 +7,7 @@ import deleteUser from './users/deleteUser';
 import getPost from './posts/getPost';
 import getPosts from './posts/getPosts';
 import createPost from './posts/createPost';
+import createCategory from './categories/createCategory';
 const router = express.Router();
 // var userRoutes: string[] = [];
 
@@ -19,5 +20,5 @@ const router = express.Router();
 
 router.use('/users', [createUser, getUser, getUsers, deleteUser]);
 router.use('/posts', [createPost, getPost, getPosts]);
-
+router.use('/categories', [createCategory]);
 export default router;

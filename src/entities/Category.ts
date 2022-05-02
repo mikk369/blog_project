@@ -1,30 +1,38 @@
 import {
   BaseEntity,
   PrimaryGeneratedColumn,
+  ManyToOne,
   Column,
-  CreateDateColumn,
-  UpdateDateColumn,
   Entity,
-  ManyToMany
+  ManyToMany,
+  JoinTable
 } from 'typeorm';
 import Post from './Post';
-import User from './User';
 
 @Entity()
 export default class Category extends BaseEntity {
   @PrimaryGeneratedColumn('uuid')
   id!: string;
+
+  @Column('varchar', { default: 'dummy' })
+  parentId!: string;
+
   @Column('varchar', { length: 75 })
-  title!: string;
+  title: string;
+
   @Column('varchar', { length: 100 })
-  metaTitle?: string;
+  metaTitle: string;
+
   @Column('text')
-  content?: string;
-  @CreateDateColumn()
-  createdAt: Date;
-  @UpdateDateColumn()
-  updatedAt: Date;
+  content: string;
 
   @ManyToMany(() => Post)
-  posts: Post;
+  @JoinTable()
+  categories: Post[];
+
+  // Parent post_comment
+  @ManyToOne(() => Category, (category) => category.parentId, {
+    createForeignKeyConstraints: true
+  })
+  parentCategory: Promise<Post>;
 }

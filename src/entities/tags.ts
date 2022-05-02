@@ -8,16 +8,17 @@ import {
   ManyToMany
 } from 'typeorm';
 import Post from './Post';
-import User from './User';
 
 @Entity()
 export class Tag extends BaseEntity {
   @PrimaryGeneratedColumn('uuid')
   id: number;
-
+  @Column()
+  authorId!: string;
+  @Column('uuid', { nullable: true })
+  parentId?: string;
   @Column()
   name: string;
-
-  @ManyToMany(() => User)
-  posts: User;
+  @ManyToMany(() => Post)
+  posts: Post;
 }

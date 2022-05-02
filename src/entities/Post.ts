@@ -12,7 +12,7 @@ import {
   OneToMany
 } from 'typeorm';
 import Category from './Category';
-import User from './User';
+import User from './user';
 
 @Entity()
 export default class Post extends BaseEntity {
@@ -22,7 +22,7 @@ export default class Post extends BaseEntity {
   title!: string;
   @Column()
   authorId!: string;
-  @Column('uuid', {nullable: true})
+  @Column('uuid', { nullable: true })
   parentId?: string;
   @Column('varchar', { length: 100 })
   metaTitle?: string;
@@ -48,7 +48,7 @@ export default class Post extends BaseEntity {
   })
   parentPost?: Promise<User>;
 
-  @ManyToMany(()=> Category)
+  @ManyToMany(() => Category)
   @JoinTable()
   categories!: Category[];
 }
