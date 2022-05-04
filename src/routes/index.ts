@@ -1,5 +1,4 @@
 import express from 'express';
-import fs from 'fs';
 import createUser from './users/createUser';
 import getUser from './users/getUser';
 import getUsers from './users/getUsers';
@@ -7,7 +6,9 @@ import deleteUser from './users/deleteUser';
 import getPost from './posts/getPost';
 import getPosts from './posts/getPosts';
 import createPost from './posts/createPost';
+import deletePost from './posts/deletePost';
 import createCategory from './categories/createCategory';
+import getCategories from './categories/getCategories';
 const router = express.Router();
 // var userRoutes: string[] = [];
 
@@ -19,6 +20,6 @@ const router = express.Router();
 // console.log(userRoutes.toString());
 
 router.use('/users', [createUser, getUser, getUsers, deleteUser]);
-router.use('/posts', [createPost, getPost, getPosts]);
-router.use('/categories', [createCategory]);
+router.use('/posts', [createPost, getPost, getPosts, deletePost]);
+router.use('/categories', [createCategory, getCategories]);
 export default router;
