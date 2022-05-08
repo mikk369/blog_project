@@ -3,20 +3,18 @@ import Category from '../../entities/Category';
 const router = express.Router();
 
 // Find user by ID
-router.get(':id', async (req: Request, res: Response) => {
+router.get('/:id', async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
     const category = await Category.findOne({ id: id });
 
-    return res.json(category);
-
-    if (!Category) {
+    if (!category) {
       return res.json({
-        message: 'no Category found with given ID'
+        message: 'no category found with given ID'
       });
     }
 
-    return res.json(Category);
+    return res.status(200).json(category);
   } catch (error) {
     if (error instanceof Error) {
       return res.json({
@@ -25,7 +23,7 @@ router.get(':id', async (req: Request, res: Response) => {
       });
     }
     // unknown (typeorm error?)
-    return res.json({
+    return res.status(400).json({
       error: 'Unable to create new category',
       message: 'unknown error'
     });
