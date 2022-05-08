@@ -10,6 +10,7 @@ import deletePost from './posts/deletePost';
 import createCategory from './categories/createCategory';
 import getCategories from './categories/getCategories';
 import getCategory from './categories/getcategory';
+import deleteCategory from './categories/deleteCategory';
 
 const router = express.Router();
 // var userRoutes: string[] = [];
@@ -23,5 +24,10 @@ const router = express.Router();
 
 router.use('/users', [createUser, getUser, getUsers, deleteUser]);
 router.use('/posts', [createPost, getPost, getPosts, deletePost]);
-router.use('/categories', [createCategory, getCategories, getCategory]);
+router.use('/categories', [
+  createCategory,
+  getCategories,
+  getCategory,
+  deleteCategory
+]);
 export default router;
